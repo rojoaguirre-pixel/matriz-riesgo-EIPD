@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #161616; -webkit-text-stroke: #161616}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #161616; -webkit-text-stroke: #161616; min-height: 15.0px}
+    span.s1 {font-kerning: none; background-color: #ffffff}
+    span.s2 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="es"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;title&gt;Generador de Matrices EIPD - AI&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="bg-slate-50 min-h-screen font-sans"&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">    &lt;nav class="bg-slate-900 text-white p-4 shadow-lg"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="container mx-auto flex justify-between items-center"&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;span class="text-xl font-bold tracking-tight"&gt;&lt;i class="fas fa-shield-halved mr-2"&gt;&lt;/i&gt;EIPD &lt;span class="text-blue-400"&gt;RiskStudio&lt;/span&gt;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div class="space-x-4"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;span class="text-sm bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30"&gt;Powered by Gemini Pro 3.1&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/nav&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">    &lt;main class="container mx-auto mt-8 p-4"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="grid grid-cols-1 lg:grid-cols-3 gap-8"&gt;</span></p>
+<p class="p1"><span class="s1">            </span></p>
+<p class="p1"><span class="s1">            &lt;div class="lg:col-span-1 space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;h2 class="text-lg font-semibold mb-4 text-slate-800"&gt;Contexto del Tratamiento&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;p class="text-sm text-slate-500 mb-4"&gt;Describe el proceso de datos para que la IA identifique los riesgos automáticamente.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                    </span></p>
+<p class="p1"><span class="s1">                    &lt;textarea id="userInput" rows="6" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm" </span></p>
+<p class="p1"><span class="s1">                        placeholder="Ej: Implementación de un sistema de reconocimiento facial para control de asistencia de empleados..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1">                    </span></p>
+<p class="p1"><span class="s1">                    &lt;button onclick="simularGeneracion()" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-all flex items-center justify-center"&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;i class="fas fa-wand-magic-sparkles mr-2"&gt;&lt;/i&gt; Generar Matriz</span></p>
+<p class="p1"><span class="s1">                    &lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                &lt;div class="bg-blue-50 p-6 rounded-xl border border-blue-100"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;h3 class="text-blue-800 font-semibold text-sm mb-2"&gt;&lt;i class="fas fa-info-circle mr-2"&gt;&lt;/i&gt;Conexión con Canva&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;p class="text-xs text-blue-700 leading-relaxed"&gt;</span></p>
+<p class="p1"><span class="s1">                        Una vez generada la matriz, puedes enviarla a tu plantilla de Canva mediante el botón de exportación para generar el PDF legal.</span></p>
+<p class="p1"><span class="s1">                    &lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">            &lt;div class="lg:col-span-2"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;div id="loader" class="hidden flex flex-col items-center justify-center h-64"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;p class="mt-4 text-slate-500"&gt;Gemini Pro 3.1 analizando riesgos normativos...&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                &lt;div id="resultContainer" class="hidden space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;div class="flex justify-between items-center"&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;h2 class="text-xl font-bold text-slate-800"&gt;Matriz de Riesgos Identificados&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm flex items-center"&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;i class="fas fa-file-export mr-2"&gt;&lt;/i&gt; Exportar a Canva</span></p>
+<p class="p1"><span class="s1">                        &lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;/div&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                    &lt;div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;table class="w-full text-left border-collapse"&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;thead class="bg-slate-50 border-b border-slate-200"&gt;</span></p>
+<p class="p1"><span class="s1">                                &lt;tr&gt;</span></p>
+<p class="p1"><span class="s1">                                    &lt;th class="p-4 text-xs font-semibold text-slate-600 uppercase"&gt;Amenaza / Riesgo&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1">                                    &lt;th class="p-4 text-xs font-semibold text-slate-600 uppercase text-center"&gt;Probabilidad&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1">                                    &lt;th class="p-4 text-xs font-semibold text-slate-600 uppercase text-center"&gt;Impacto&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1">                                    &lt;th class="p-4 text-xs font-semibold text-slate-600 uppercase text-center"&gt;Nivel&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1">                                &lt;/tr&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;/thead&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;tbody id="matrizBody"&gt;</span></p>
+<p class="p1"><span class="s1">                                &lt;/tbody&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;/table&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                &lt;div id="emptyState" class="bg-white border-2 border-dashed border-slate-300 rounded-xl h-64 flex flex-col items-center justify-center text-slate-400"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;i class="fas fa-table text-4xl mb-4"&gt;&lt;/i&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;p&gt;Esperando datos para procesar...&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/main&gt;</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">    &lt;script&gt;</span></p>
+<p class="p1"><span class="s1">        function simularGeneracion() {</span></p>
+<p class="p1"><span class="s1">            const input = document.getElementById('userInput').value;</span></p>
+<p class="p1"><span class="s1">            if(!input) return alert("Por favor, ingresa un contexto.");</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">            document.getElementById('emptyState').classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">            document.getElementById('resultContainer').classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">            document.getElementById('loader').classList.remove('hidden');</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">            // Simulación de respuesta de Gemini Pro 3.1</span></p>
+<p class="p1"><span class="s1">            setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1">                const riesgos = [</span></p>
+<p class="p1"><span class="s1">                    { nombre: "Acceso no autorizado a datos biométricos", prob: "Baja", imp: "Muy Alto", nivel: "Crítico" },</span></p>
+<p class="p1"><span class="s1">                    { nombre: "Tratamiento sin base legal adecuada", prob: "Media", imp: "Alto", nivel: "Alto" },</span></p>
+<p class="p1"><span class="s1">                    { nombre: "Falta de transparencia en el aviso de privacidad", prob: "Alta", imp: "Medio", nivel: "Medio" }</span></p>
+<p class="p1"><span class="s1">                ];</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                const tbody = document.getElementById('matrizBody');</span></p>
+<p class="p1"><span class="s1">                tbody.innerHTML = "";</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                riesgos.forEach(r =&gt; {</span></p>
+<p class="p1"><span class="s1">                    const color = r.nivel === 'Crítico' ? 'bg-red-100 text-red-700' : (r.nivel === 'Alto' ? 'bg-orange-100 text-orange-700' : 'bg-yellow-100 text-yellow-700');</span></p>
+<p class="p1"><span class="s1">                    tbody.innerHTML += `</span></p>
+<p class="p1"><span class="s1">                        &lt;tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors"&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;td class="p-4 text-sm font-medium text-slate-700"&gt;${r.nombre}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;td class="p-4 text-sm text-center text-slate-600"&gt;${r.prob}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;td class="p-4 text-sm text-center text-slate-600"&gt;${r.imp}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;td class="p-4 text-center"&gt;</span></p>
+<p class="p1"><span class="s1">                                &lt;span class="px-3 py-1 rounded-full text-xs font-bold ${color}"&gt;${r.nivel}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;/td&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;/tr&gt;</span></p>
+<p class="p1"><span class="s1">                    `;</span></p>
+<p class="p1"><span class="s1">                });</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p1"><span class="s1">                document.getElementById('loader').classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">                document.getElementById('resultContainer').classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">            }, 2000);</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">    &lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
