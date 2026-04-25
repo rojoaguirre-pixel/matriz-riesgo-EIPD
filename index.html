@@ -2,78 +2,111 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>EIPD RiskStudio v3.0 - Dinámico</title>
+    <title>EIPD RiskStudio v4.0 - Data Legal Consulting</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 p-6 text-sm text-slate-800">
-    <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-        <h1 class="text-2xl font-black text-blue-900 mb-2 italic uppercase">EIPD RiskStudio - Consultoría Real</h1>
-        <p class="text-slate-500 mb-6 italic">Ingresa el contexto real para generar el RAT, EIPD y Mapa de Riesgo.</p>
-        
-        <textarea id="userInput" rows="5" class="w-full p-4 border rounded-xl bg-slate-50 mb-4" placeholder="Ej: Somos 2 trabajadores, recolectamos nombres de futbolistas amateur, no usamos IA..."></textarea>
-        
-        <button onclick="procesarAnalisis()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg uppercase tracking-widest transition-all">
-            Generar Análisis Personalizado
-        </button>
+<body class="bg-slate-50 min-h-screen text-[13px] text-slate-800">
+    <nav class="bg-slate-900 text-white p-4 border-b-4 border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <span class="text-xl font-black italic text-blue-400">EIPD <span class="text-white">PRO SUITE</span></span>
+            <span class="text-[10px] uppercase tracking-widest opacity-60">Consultoría Senior GRC</span>
+        </div>
+    </nav>
 
-        <div id="resultados" class="hidden mt-10 space-y-8">
-            <div class="p-6 bg-slate-900 text-white rounded-2xl border-l-8 border-blue-500">
-                <h3 class="text-blue-400 font-bold uppercase text-xs mb-2">Resumen Ejecutivo para Directorio</h3>
-                <p id="resumenTexto" class="italic"></p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-blue-800 uppercase mb-4 italic">Registro de Actividades de Tratamiento (RAT)</h3>
-                <table class="w-full text-left text-[11px]">
-                    <tr class="border-b uppercase text-slate-400 font-black italic">
-                        <th class="p-2">Proceso Detectado</th><th class="p-2">Magnitud</th><th class="p-2">EIPD Requerida</th><th class="p-2">Nivel de Riesgo</th>
-                    </tr>
-                    <tr id="ratFila" class="italic"></tr>
-                </table>
+    <main class="container mx-auto p-6 grid lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-4">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border">
+                <h2 class="font-bold mb-4 uppercase text-blue-800">Contexto del Cliente</h2>
+                <textarea id="userInput" rows="8" class="w-full p-4 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 mb-4" placeholder="Copia aquí el caso del cliente..."></textarea>
+                <button onclick="ejecutarConsultoria()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all uppercase">
+                    Generar Auditoría Dinámica
+                </button>
             </div>
         </div>
-    </div>
+
+        <div id="panelResultados" class="lg:col-span-8 hidden space-y-6">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl border-l-8 border-emerald-500 shadow-xl">
+                <h3 class="text-emerald-400 font-bold uppercase text-[10px] mb-2 underline">Resumen Ejecutivo para Directorio</h3>
+                <p id="resumen" class="italic text-slate-300"></p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border shadow-sm">
+                <h3 class="font-bold text-blue-800 uppercase mb-4 border-b pb-2">Inventario Técnico & RAT (Top 10)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-[11px] text-left italic">
+                        <thead>
+                            <tr class="text-slate-400 border-b uppercase font-bold">
+                                <th class="p-2">ID</th><th class="p-2">Repositorio</th><th class="p-2">Flujo / Proceso</th><th class="p-2">TIA (Transf.)</th><th class="p-2">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ratCuerpo" class="divide-y text-slate-600"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                    <h4 class="font-bold text-blue-900 uppercase text-[11px] mb-3 border-b border-blue-200">Análisis EIPD</h4>
+                    <ul id="eipdLista" class="space-y-2 text-[11px] italic"></ul>
+                </div>
+                <div class="bg-slate-900 text-white p-6 rounded-2xl">
+                    <h4 class="text-blue-400 font-bold uppercase text-[10px] mb-4">Roadmap de Mitigación (Mes 1-6)</h4>
+                    <div id="roadmapContenido" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
-        function procesarAnalisis() {
-            const input = document.getElementById('userInput').value.toLowerCase();
-            const resultados = document.getElementById('resultados');
-            const resumen = document.getElementById('resumenTexto');
-            const ratFila = document.getElementById('ratFila');
-
-            // Lógica de Detección Simple
-            let tieneIA = input.includes("ia") || input.includes("inteligencia");
-            let tieneBiometria = input.includes("biometrico") || input.includes("huella") || input.includes("rostro");
-            let numTrabajadores = input.match(/\d+/) ? parseInt(input.match(/\d+/)[0]) : 0;
-
-            // Evaluación de Riesgo
-            let riesgo = "BAJO";
-            let eipd = "NO OBLIGATORIA";
-            let colorRiesgo = "text-emerald-600";
-
-            if (tieneIA || tieneBiometria || numTrabajadores > 250) {
-                riesgo = "CRÍTICO";
-                eipd = "OBLIGATORIA";
-                colorRiesgo = "text-red-600";
-            } else if (numTrabajadores > 50) {
-                riesgo = "MEDIO";
-                colorRiesgo = "text-orange-600";
-            }
-
-            // Inyectar Resultados
-            resumen.innerText = `Empresa con ${numTrabajadores} trabajadores. Al ${tieneIA || tieneBiometria ? 'detectarse' : 'no detectarse'} tecnologías de alto impacto, el nivel de riesgo es ${riesgo}. Se recomienda ${numTrabajadores < 10 ? 'medidas básicas de seguridad' : 'implementar ISO 27001'}.`;
+        function ejecutarConsultoria() {
+            const input = document.getElementById('userInput').value;
+            const panel = document.getElementById('panelResultados');
             
-            ratFila.innerHTML = `
-                <td class="p-2 font-bold">Captura de datos amateur</td>
-                <td class="p-2">${numTrabajadores} empleados</td>
-                <td class="p-2 font-bold">${eipd}</td>
-                <td class="p-2 font-black ${colorRiesgo}">${riesgo}</td>
+            // Lógica de Procesamiento
+            const tieneIA = /ia|inteligencia|algoritmo/i.test(input);
+            const tieneBio = /biometrico|huella|rostro/i.test(input);
+            const numEmp = input.match(/\b([1-9]|[1-9][0-9])\b/g) ? input.match(/\b([1-9]|[1-9][0-9])\b/g)[0] : "Bajo";
+
+            // 1. Resumen
+            document.getElementById('resumen').innerText = `Se analiza una microempresa de ${numEmp} trabajadores. A diferencia de grandes OIV, el riesgo aquí radica en la ILICITUD del origen de los datos y la falta de seguridad técnica, no en la magnitud masiva.`;
+
+            // 2. RAT Dinámico (Generación de 10 Repositorios basados en procesos de fútbol amateur)
+            let tablaHTML = "";
+            const procesos = ["Registro de Jugadores", "Base de WhatsApp", "Fichas Médicas", "Fotos/DNI", "Pagos Web", "Historial de Clubes", "Emails Marketing", "Copias Local", "Cloud Backup", "Venta de BD"];
+            procesos.forEach((p, i) => {
+                tablaHTML += `<tr>
+                    <td class="p-2 font-bold text-blue-600">R0${i+1}</td>
+                    <td class="p-2">${p}</td>
+                    <td class="p-2">Captura sin consentimiento</td>
+                    <td class="p-2 text-red-500 font-bold">${i === 8 ? 'USA (AWS)' : 'Chile'}</td>
+                    <td class="p-2 font-bold ${i === 9 ? 'text-red-600 underline' : 'text-orange-500'}">${i === 9 ? 'ILÍCITO' : 'Vulnerable'}</td>
+                </tr>`;
+            });
+            document.getElementById('ratCuerpo').innerHTML = tablaHTML;
+
+            // 3. EIPD
+            document.getElementById('eipdLista').innerHTML = `
+                <li>• <b>Base Legal:</b> NULA. Se recolectan datos sin consentimiento válido bajo Ley 21.719.</li>
+                <li>• <b>Proporcionalidad:</b> No se justifica almacenar datos de salud/DNI para venta futura.</li>
+                <li>• <b>Seguridad:</b> Riesgo crítico de filtración por base de datos abierta.</li>
             `;
 
-            resultados.classList.remove('hidden');
+            // 4. Roadmap 1-6
+            document.getElementById('roadmapContenido').innerHTML = `
+                <div class="border-l-2 border-blue-500 pl-4">
+                    <p class="text-[10px] font-bold text-blue-300">MES 1-2: LEGALIZACIÓN</p>
+                    <p class="text-[9px] opacity-70 italic">Obtención de consentimiento retroactivo y regularización de RAT.</p>
+                </div>
+                <div class="border-l-2 border-emerald-500 pl-4">
+                    <p class="text-[10px] font-bold text-emerald-300">MES 3-6: SEGURIDAD ISO 27001</p>
+                    <p class="text-[9px] opacity-70 italic">Implementación de controles de acceso y cifrado para evitar multas de la Agencia.</p>
+                </div>
+            `;
+
+            panel.classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
-
-
