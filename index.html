@@ -2,15 +2,94 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>EIPD RiskStudio AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIPD RiskStudio - Pro Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 min-h-screen p-8">
-    <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-slate-200">
-        <h1 class="text-2xl font-bold text-slate-800 mb-2">Matriz de Riesgos EIPD</h1>
-        <p class="text-slate-500 mb-6 italic text-sm">Herramienta de Consultoría en Protección de Datos</p>
-        <textarea id="userInput" rows="4" class="w-full p-4 border rounded-lg" placeholder="Describe el tratamiento de datos..."></textarea>
-        <button onclick="alert('Iniciando análisis de cumplimiento...')" class="w-full mt-4 bg-blue-600 text-white font-bold py-3 rounded-lg">Analizar con Gemini 3.1</button>
-    </div>
+<body class="bg-slate-100 min-h-screen font-sans">
+    <nav class="bg-slate-900 text-white p-4 shadow-xl border-b-4 border-blue-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <span class="text-xl font-bold tracking-tighter italic text-blue-400">EIPD RISKSTUDIO <span class="text-white text-xs align-top font-normal">v2.0 Chile</span></span>
+            <div class="text-[10px] text-right leading-tight">
+                <p>DATA LEGAL CONSULTING</p>
+                <p class="text-slate-400">GRC & CIBERSEGURIDAD</p>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 p-4">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg border border-slate-200 h-fit">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 text-blue-600">Contexto del Análisis</h2>
+                <div class="space-y-4">
+                    <label class="block text-sm font-semibold text-slate-600 uppercase tracking-wider">Tratamiento a evaluar:</label>
+                    <textarea id="userInput" rows="6" class="w-full p-4 bg-slate-50 border border-slate-300 rounded-xl focus:ring-4 focus:ring-blue-500/20 outline-none text-sm transition-all" placeholder="Ej: Implementación de sistema de IA para monitoreo biométrico en accesos..."></textarea>
+                    
+                    <div class="p-3 bg-blue-50 border border-blue-100 rounded-lg">
+                        <p class="text-[10px] text-blue-800 font-bold uppercase mb-1">Indicadores detectados en Chile:</p>
+                        <ul class="text-[10px] text-blue-600 space-y-1 italic">
+                            <li>• Empresa > 250 trabajadores (Estructura Mayor)</li>
+                            <li>• Uso de IA & Biometría (Alta Complejidad)</li>
+                            <li>• Operador de Importancia Vital (Ley Ciberseguridad)</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="generarMatriz()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center">
+                        <i class="fas fa-microchip mr-2"></i> Generar Análisis Pro
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultPanel" class="lg:col-span-2 hidden">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200">
+                    <h2 class="text-lg font-bold text-slate-800 mb-6 flex justify-between items-center">
+                        Matriz de Riesgos Normativos
+                        <span class="text-xs bg-red-100 text-red-600 px-3 py-1 rounded-full uppercase">Análisis Ley 21.719</span>
+                    </h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-[10px] uppercase tracking-wider text-slate-400 border-b">
+                                    <th class="py-3 px-2">Riesgo / Factor</th>
+                                    <th class="py-3 px-2">Prob/Imp</th>
+                                    <th class="py-3 px-2">Nivel</th>
+                                    <th class="py-3 px-2">Mitigación Sugerida</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr class="border-b bg-red-50/30">
+                                    <td class="py-4 px-2 font-medium text-slate-700">Uso de IA y Datos Biométricos</td>
+                                    <td class="py-4 px-2">5 / 5</td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-red-600 text-white text-[10px] rounded font-bold uppercase">Crítico</span></td>
+                                    <td class="py-4 px-2 text-xs italic">Evaluación de Impacto (EIPD) obligatoria y cifrado asimétrico.</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-4 px-2 font-medium text-slate-700">Magnitud (>250 trabajadores)</td>
+                                    <td class="py-4 px-2">4 / 3</td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-orange-500 text-white text-[10px] rounded font-bold uppercase">Alto</span></td>
+                                    <td class="py-4 px-2 text-xs italic">Nombramiento de DPO y Registro de Actividades de Tratamiento (RAT).</td>
+                                </tr>
+                                <tr class="border-b bg-blue-50/30">
+                                    <td class="py-4 px-2 font-medium text-slate-700">Infraestructura Crítica (OIV)</td>
+                                    <td class="py-4 px-2">3 / 5</td>
+                                    <td class="py-4 px-2"><span class="px-2 py-1 bg-red-600 text-white text-[10px] rounded font-bold uppercase">Crítico</span></td>
+                                    <td class="py-4 px-2 text-xs italic">Alineación con CSIRT y reporte obligatorio de incidentes.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function generarMatriz() {
+            document.getElementById('resultPanel').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
